@@ -16,8 +16,9 @@ const UserList = () => {
   const [popOpen, setPopOpen] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
-  const [hasAccess ] = useHasAccess()
-  const [collectionData, collectionLoading, collectionFetch] = useGetCollectionLength();
+  const [hasAccess] = useHasAccess();
+  const [collectionData, collectionLoading, collectionFetch] =
+    useGetCollectionLength();
   const [first, setFirst] = useState(0);
   const [rows, setRows] = useState(10);
   const [page, setPage] = useState(0);
@@ -30,9 +31,7 @@ const UserList = () => {
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["user-list"],
     queryFn: async () => {
-      const res = await axiosSecure(
-        `/api/get-users?page=${page}&limit=${rows}&date=${date}`
-      );
+      const res = await axiosSecure(`/api/get-users`);
       return res.data.result;
     },
   });
@@ -61,7 +60,7 @@ const UserList = () => {
       if (res.data) {
         toast.success(res.data.message);
         refetch();
-        collectionFetch()
+        collectionFetch();
       }
     } catch (error) {
       toast.error(error.response.data.message);
@@ -77,7 +76,6 @@ const UserList = () => {
   useEffect(() => {
     refetch();
   }, [page, date]);
-
 
   if (isLoading || collectionLoading) {
     return <Loader />;
@@ -95,17 +93,27 @@ const UserList = () => {
             </button>
           </div>
           <div className="flex-1 flex items-stretch">
-            <input type="search" onChange={e => setDate(e.target.value)} className="px-2 py-2 w-full border-2 border-gray-700 focus:outline-none" />
-            <button onClick={() => setDate(date)} className="px-4 bg-gray-700 text-white"><IoSearchSharp className="text-3xl" /></button>
-          </div>
-          {hasAccess?.some(item => item === 'user-create') &&
+            <input
+              type="search"
+              onChange={(e) => setDate(e.target.value)}
+              className="px-2 py-2 w-full border-2 border-gray-700 focus:outline-none"
+            />
             <button
-          onClick={() => setIsOpen(true)}
-          className="text-text_lg bg-gray-700 text-white px-5 py-2 font-bold duration-500 flex items-center gap-2"
-        >
-          <IoAddCircleOutline className="text-2xl font-bold" />
-          <span>Add User</span>
-        </button>}
+              onClick={() => setDate(date)}
+              className="px-4 bg-gray-700 text-white"
+            >
+              <IoSearchSharp className="text-3xl" />
+            </button>
+          </div>
+          {hasAccess?.some((item) => item === "user-create") && (
+            <button
+              onClick={() => setIsOpen(true)}
+              className="text-text_lg bg-gray-700 text-white px-5 py-2 font-bold duration-500 flex items-center gap-2"
+            >
+              <IoAddCircleOutline className="text-2xl font-bold" />
+              <span>Add User</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -168,9 +176,7 @@ const UserList = () => {
                 <td className="border ">
                   <button
                     className={`rounded-sm ${
-                      data.status
-                        ? "bg_status_primary"
-                        : "bg_status_success"
+                      data.status ? "bg_status_primary" : "bg_status_success"
                     }  font-semibold border-none`}
                   >
                     {data.status ? "Active" : "Inactive"}
@@ -188,25 +194,25 @@ const UserList = () => {
                       } right-[14px] top-[24px] rounded-md rounded-tr-sm duration-300 origin-top-right w-44`}
                     >
                       <ul className="text_color text-left">
-                        {hasAccess?.some(item => item === 'user-edit') &&
+                        {hasAccess?.some((item) => item === "user-edit") && (
                           <li
-                          onClick={() =>
-                            handleActiveInactive(data._id, data.status)
-                          }
-                          className="w-full p-2 text-text_sm transition-all flex items-center list_hover gap-2"
-                        >
-                          {data.status === 1 ? <IoMdEyeOff /> : <IoMdEye />}{" "}
-                          {data.status === 1 ? "Inactive" : "Active"}
-                        </li>
-                        }
-                        {hasAccess?.some(item => item === 'user-delete') &&
+                            onClick={() =>
+                              handleActiveInactive(data._id, data.status)
+                            }
+                            className="w-full p-2 text-text_sm transition-all flex items-center list_hover gap-2"
+                          >
+                            {data.status === 1 ? <IoMdEyeOff /> : <IoMdEye />}{" "}
+                            {data.status === 1 ? "Inactive" : "Active"}
+                          </li>
+                        )}
+                        {hasAccess?.some((item) => item === "user-delete") && (
                           <li
                             onClick={() => handleDelete(data._id)}
                             className="w-full p-2 text-text_sm transition-all flex items-center list_hover gap-2"
                           >
                             <MdDelete /> Delete
                           </li>
-                        }
+                        )}
                       </ul>
                     </div>
                   </button>
@@ -216,7 +222,12 @@ const UserList = () => {
           </tbody>
         </table>
       </div>
-      <AddUserModal isOpen={isOpen} setIsOpen={setIsOpen} fetchData={refetch} collectionFetch={collectionFetch} />
+      <AddUserModal
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        fetchData={refetch}
+        collectionFetch={collectionFetch}
+      />
       {collectionData.user >= rows && (
         <Paginator
           className="bg-gray-700 max-w-fit mx-auto mt-2 text-white"

@@ -26,6 +26,7 @@ const LeftBar = () => {
   const [isSmallScreen] = useSmallScreen();
   const [openDropdown, setOpenDropdown] = useState(null);
 
+
   const handleOpen = (id) => {
     setOpenDropdown((prevIdx) => (prevIdx === id ? null : id));
   };
@@ -561,7 +562,7 @@ const LeftBar = () => {
                         openDropdown === 2 ? "max-h-[400px]" : "max-h-0"
                       } overflow-hidden ml-m_md transition-all duration-500 ease-in-out`}
                     >
-                      {hasAccess?.some((item) => item === "user-list") && (
+                      {hasAccess?.some((item) => item.name === "user-list") && (
                         <li
                           className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
                             selected === "/admin/userList"
@@ -581,7 +582,7 @@ const LeftBar = () => {
                           </Link>
                         </li>
                       )}
-                      {hasAccess?.some((item) => item === "role-list") && (
+                      {hasAccess?.some((item) => item.name === "role-list") && (
                         <li
                           className={` px-p_primary my-1 hover:cursor-pointer hover:rounded-rounded_primary hover: duration-200   ${
                             selected === "/admin/roleList"

@@ -28,7 +28,7 @@ const TopArrow = () => {
   };
 
     return (
-        <div className={`w-12 flex justify-center fixed right-0 bg-text_secondary text-white p-pl_primary  transition-all duration-500 z-50 ${isVisible ? "bottom-14" : "-bottom-24"} `}>
+        <div className={`w-12 flex justify-center fixed right-0 bg-text_secondary text-white py-1.5  transition-all duration-500 z-50 ${isVisible ? "bottom-14" : "-bottom-24"} `}>
             <ul className="space-y-1 flex flex-col items-center">
                 <button onClick={scrollToTop}><IoIosArrowUp className="text-text_xl" /></button>
             </ul>

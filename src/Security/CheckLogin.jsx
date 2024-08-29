@@ -13,29 +13,28 @@ const CheckLogin = ({ children }) => {
   const [loader, setLoader] = useState(false)
   const navigate = useNavigate()
   const token = localStorage.getItem("token");
-  const baseUrl = url
 
 
   useEffect(() => {
     if (!token) {
       return (
-        toast.error("You are not login 1") && (
+        toast.error("You are not login") && (
           navigate('/admin/login')
         )
       );
     } else {
-      axios(`${baseUrl}/api/validate-token`, {
+      axios(`${url}/api/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
         if(isLoading) return setLoader(true)
-        if (res.data.userId === userData._id) {
+        if (res.data.userData.id === userData.userData.id) {
           setGo(true);
           setLoader(false)
         } else {
-          return toast.error("You are not login 2") && (
+          return toast.error("You are not login ") && (
             navigate('/admin/login')
           )
         }

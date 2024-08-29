@@ -51,9 +51,9 @@ const Profile = () => {
       <div className="bg-_white border-2 border-bg_lightSlate rounded-md p-[20px] max-w-lg w-full mx-auto">
         <div>
           <div className="h-24 w-24 overflow-hidden rounded-full mx-auto">
-            {userData.image ? (
+            {userData.userData.image ? (
               <img
-                src={`${imgUrl}${userData.image}`}
+                src={`${imgUrl}${userData.userData.image}`}
                 className="h-full w-full object-cover"
                 alt=""
               />
@@ -63,14 +63,14 @@ const Profile = () => {
           </div>
           <div className="mt-5">
             <div className="flex flex-col items-center space-y-2 mb-3">
-              <p className="font-semibold text-xl">{userData.name}</p>
+              <p className="font-semibold text-xl">{userData.userData.name}</p>
               <p className="text-xs px-pl_primary py-1 rounded-sm bg-bg_lightSlate max-w-fit">
-                {userData?.role || "---"}
+                {userData?.userData.role || "---"}
               </p>
               <div className="flex items-center gap-gap_primary text-gray-500">
-                {formatDate(userData.createdAt)}
+                {formatDate(userData.userData.created_at)}
                 <div className="w-[1px] bg-gray-500 h-4"></div>
-                {userData?.gender || "---"}
+                {userData?.userData.gender || "---"}
               </div>
             </div>
             <hr />
@@ -80,10 +80,10 @@ const Profile = () => {
             <hr />
             <div className="mt-3">
               <p className=" text-sm text-center text-gray-500">
-                <strong>Email:</strong> {userData?.email}
+                <strong>Email:</strong> {userData?.userData.email}
               </p>
               <p className=" text-sm text-center text-gray-500">
-                <strong>Phone:</strong> {userData?.phone}
+                <strong>Phone:</strong> {userData?.userData.mobile}
               </p>
             </div>
             <div className="flex gap-gap_primary items-center justify-center my-mt_large">
@@ -95,7 +95,7 @@ const Profile = () => {
 
             <p className="my-4 text-gray-500 text-center">
               <strong>Address:</strong>
-              <p>{userData?.address || "---"}</p>
+              <p>{userData?.userData.address || "---"}</p>
             </p>
 
             <hr />

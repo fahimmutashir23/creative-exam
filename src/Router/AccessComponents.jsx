@@ -16,7 +16,8 @@ const AccessComponents = ({accessName, children}) => {
           toast.error('You are not logged in');
           navigate('/admin/login');
         } else {
-          const access = userData.userPermissionData?.some((item) => item === accessName);
+          const access = userData.userPermissionData?.some((item) => item.name === accessName);
+          console.log(access);
           if (!access) {
             toast.error('You are not permission to go this route');
             navigate(-1);

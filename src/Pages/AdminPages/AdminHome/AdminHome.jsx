@@ -27,22 +27,20 @@ const colors = [
 ];
 
 const AdminHome = () => {
-  const [ collectionData ] = useGetCollectionLength();
-  const [ bulkSale ] = useBulkSales();
-  const [ monthlySale ] = useMonthlySale();
+  // const [ collectionData ] = useGetCollectionLength();
+  // const [ bulkSale ] = useBulkSales();
+  // const [ monthlySale ] = useMonthlySale();
 
-  if (!collectionData.product || !bulkSale) {
-    return <Loader2 />;
-  }
+
 
 
   const statCard = [
-    { text: "Total Product in Web", value: collectionData.product || 0 },
-    { text: "Total Bookings", value: collectionData.booking || 0 },
-    { text: "Today's Sale", value: bulkSale.todayAmount || 0 },
-    { text: "Total Revenue", value: collectionData.revenue || 0 },
-    { text: "Total Expense", value: collectionData.expense?.totalExpense || 0 },
-    { text: "Total Stock", value: collectionData.stock.stockAmount[0].totalSum || 0 },
+    { text: "Total Product in Web", value:  0 },
+    { text: "Total Bookings", value:  0 },
+    { text: "Today's Sale", value: 0 },
+    { text: "Total Revenue", value:  0 },
+    { text: "Total Expense", value: 0 },
+    { text: "Total Stock", value: 0 },
   ];
 
   return (
@@ -64,7 +62,7 @@ const AdminHome = () => {
       })}
     </div>
     <div className="grid grid-cols-1 lg:grid-cols-2">
-      <BarCharts monthlySale={monthlySale} />
+      {/* <BarCharts monthlySale={monthlySale} /> */}
     </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MenuBar from "./MenuBar";
 import { RxCross1 } from "react-icons/rx";
 import { MdMenu } from "react-icons/md";
@@ -60,7 +60,7 @@ const Navbar = () => {
                 </Link>
               </div>
             </li> */}
-            <li className="relative group">
+            {/* <li className="relative group">
               <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
                 <Link to={'/events'}>
                 Event
@@ -96,7 +96,7 @@ const Navbar = () => {
               >
                 Hot Product
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

@@ -1,12 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../Layouts/Layout";
 import Home from "../Pages/Home/Home";
-import Gallery from "../Pages/About/Gallery";
-import Products from "../Pages/Products/Products";
-import DetailsProduct from "../Pages/Products/DetailsProduct";
-import Contect from "../Pages/ContectUs/Contect";
-import HotProducts from './../Pages/Products/HotProducts';
-import Event from "../Pages/About/Event";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import AdminHome from "../Pages/AdminPages/AdminHome/AdminHome";
 import ProductList from "../Pages/AdminPages/ProductList/ProductList";
@@ -15,10 +9,8 @@ import BookingsList from "../Pages/AdminPages/Bookings/BookingsList";
 import AdminLogin from "../Pages/AdminPages/AdminAuth/AdminLogin";
 import AdminRegistration from "../Pages/AdminPages/AdminAuth/AdminRegistration";
 import CheckLogin from "../Security/CheckLogin";
-import OrderPage from "../Pages/OrderPage/OrderPage";
 import ErrorPage from "../Utils/ErrorPage";
 import Invoice from "../Pages/AdminPages/Invoice/Invoice";
-import CheckNotLogin from "../Security/CheckNotLogin";
 import Profile from "../Pages/AdminPages/Profile/Profile";
 import Contact from "../Pages/AdminPages/Contact/Contact";
 import ExpenseCategoryList from "../Pages/AdminPages/ExpenseCategory/ExpenseCategoryList";
@@ -52,34 +44,6 @@ const Router = createBrowserRouter([
             {
                 path: '/',
                 element : <Home />
-            },
-            {
-                path: '/gallery',
-                element : <Gallery />
-            },
-            {
-                path: '/events',
-                element : <Event/>
-            },
-            {
-                path: '/contact',
-                element : <Contect />
-            },
-            {
-                path: '/products',
-                element : <Products/>
-            },
-            {
-                path: '/products/:id',
-                element : <DetailsProduct/>,
-            },
-            {
-                path: '/hotProduct',
-                element : <HotProducts/>,
-            },
-            {
-                path: '/orderPage',
-                element : <OrderPage/>,
             },
             {
                 path: '/invoice',
@@ -206,7 +170,7 @@ const Router = createBrowserRouter([
     },
     {
         path: '/admin/login',
-        element: <CheckNotLogin><AdminLogin /></CheckNotLogin>
+        element: <AdminLogin />
     },
     {
         path: '/admin/register',

@@ -10,7 +10,7 @@ const useUser = () => {
       queryKey : ['profile_data'],
       queryFn : async () => {
         const res = await axiosSecure("/api/profile");
-        return res.data.result
+        return res.data
       },
       enabled: !!token
     })

@@ -2,95 +2,64 @@ import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import useUser from "../../../Security/useUser";
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
-import { Html5QrcodeScanner } from "html5-qrcode";
-
+import bg from "@/assets/asset/bg.jpeg";
 
 const AdminLogin = () => {
-    const axiosPublic = useAxiosPublic();
-    const navigate = useNavigate();
-    const [, , refetch] = useUser();
-    const [data, setData] = useState(null);
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
+  const [, , refetch] = useUser();
 
-    useEffect(() => {
-      if(data){
-        axiosPublic(`/api/auth?email=${data.email}&password=${data.password}`)
-      .then(res => {
-        if (res.data) {
-          toast.success(res.data.message);
-          localStorage.setItem("token", res.data.token);
-          navigate("/admin");
-          refetch();
-        }
-      })
-      }
-    }, [data])
-
-  const handleScan = () => {
-    let scanner;
-
-
-    function onScanSuccess(decodedText, decodedResult) {
-      const decodeData = (encodedData) => JSON.parse(atob(encodedData));
-      const decodedData = decodeData(decodedText)
-      setData(decodedData);
-      scanner.clear()
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const mobile = e.target.mobile.value;
+    const password = e.target.password.value;
+    const info = {
+      mobile,
+      password
     }
-
-    const config = {
-      fps: 10,
-      qrbox: { width: 200, height: 200 },
-      rememberLastUsedCamera: true,
-    };
-
-    scanner = new Html5QrcodeScanner("reader", config, true);
-    scanner.render(onScanSuccess);
-  }
-  
-    const handleLogin = async (e) => {
-      e.preventDefault();
-      const email = e.target.email.value;
-      const password = e.target.password.value;
-  
-      try {
-        const res = await axiosPublic(`/api/auth?email=${email}&password=${password}`);
-        if (res.data) {
-          toast.success(res.data.message);
-          localStorage.setItem("token", res.data.token);
-          navigate("/admin");
-          refetch();
-        }
-      } catch (err) {
-        toast.error(err.message);
+    try {
+      const res = await axiosPublic.post(`/api/login`, info);
+      if (res.data) {
+        toast.success(res.data.message);
+        localStorage.setItem("token", res.data.access_token);
+        navigate("/admin");
+        refetch();
+        e.target.reset()
       }
-    };
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
-
-    return (
+  return (
+    <div
+      className="bg-cover bg-no-repeat"
+      style={{ backgroundImage: `url(${bg})` }}
+    >
+      <div className="h-full w-full bg-blue-800/30 absolute"></div>
       <div className="min-h-screen max-w-xl mx-auto flex justify-center items-center w-full px-2">
         <div className="w-full">
-          <div className="w-full card shadow-xl bg-base-100 relative">
-            <div className="flex justify-center absolute -top-10">
-              <img
-                src=''
-                className="w-1/5 rounded-full border-4 border-white"
-                alt=""
-              />
+          <div className="w-full card shadow-xl relative bg-blue-700/30 backdrop-blur-md">
+            <div className="flex justify-center absolute lg:-top-11">
+              <img src={""} className="w-1/4 lg:w-1/3 border-white" alt="" />
             </div>
-  
-            <h1 className="text-2xl text-center pt-14 lg:pt-[70px] pb-2 rounded-t-xl bg-gray-200 text-blue-700 lg:text-3xl font-semibold">
-              Welcome to <br /> Tech Hub
+
+            <h1 className="text-2xl text-center pt-14 lg:pt-[70px] pb-2 rounded-t-xl bg-gray-200/20 text-gray-800 lg:text-5xl font-semibold invitationTextFont">
+              Welcome to Happy Budget
             </h1>
-            <form onSubmit={handleLogin} className="card-body">
+            <form
+              onSubmit={handleLogin}
+              className="px-2 lg:px-8 py-4 lg:py-6 text-white"
+            >
               <div className="form-control">
                 <label className="label">
-                  <span className="font-semibold">Email *</span>
+                  <span className="font-semibold">Mobile *</span>
                 </label>
                 <input
-                  type="email"
-                  placeholder="Email"
-                  name="email"
-                  className="border h-12 bg-gray-100 focus:ring-0 px-4 focus:border w-full focus:outline-none"
+                  type="number"
+                  placeholder="Mobile"
+                  name="mobile"
+                  className="border border-gray-300 h-12 bg-gray-100/30 focus:ring-0 px-4 focus:border w-full focus:outline-none"
                   required
                 />
               </div>
@@ -102,32 +71,31 @@ const AdminLogin = () => {
                   type="password"
                   name="password"
                   placeholder="password"
-                  className="border h-12 bg-gray-100 focus:ring-0 px-4 focus:border w-full focus:outline-none"
+                  className="border border-gray-300 h-12 bg-gray-100/30 focus:ring-0 px-4 focus:border w-full focus:outline-none"
                   required
                 />
               </div>
               <div className="w-full mt-6 flex flex-col lg:flex-row gap-2 items-center">
-                <button
-                  type="submit"
-                  className="button_primary w-full"
-                >
+                <button type="submit" className="button_primary w-full">
                   Login
                 </button>
-                or
-                <div
-                onClick={handleScan}
-                  className="button_primary w-full text-center cursor-pointer"
-                >
-                  Scan QR Code
-                </div>
               </div>
-                <div id="reader"></div>
-              <p>If you are not an account please <Link className="text-blue-600" to='/admin/registration'>Register</Link></p>
+              <div id="reader"></div>
+              <p className="text-gray-700">
+                If you are not an account please
+                <Link
+                  className="text-gray-700 font-medium ml-2"
+                  to="/admin/register"
+                >
+                  Register
+                </Link>
+              </p>
             </form>
           </div>
         </div>
       </div>
-    );
-  };
+    </div>
+  );
+};
 
 export default AdminLogin;

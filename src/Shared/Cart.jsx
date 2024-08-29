@@ -14,7 +14,6 @@ const Cart = () => {
 
   return (
     <Link
-      to="/orderPage"
       className="hover:text-white w-12 flex relative justify-center bg-text_secondary text-white px-pl_primary py-3"
     >
       <span className="absolute -top-4 -left-4 bg-text_secondary flex items-center justify-center h-8 w-8 rounded-full">
