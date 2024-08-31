@@ -38,6 +38,11 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
+            <li>
+              <Link to='/admin/login' className="text-text_secondary font-semibold text-text_md">
+                Admin Login
+              </Link>
+            </li>
             {/* <li className="relative group ">
               <p className="text-text_secondary mb-0 font-semibold text-text_md flex items-center">
                 About Us{" "}

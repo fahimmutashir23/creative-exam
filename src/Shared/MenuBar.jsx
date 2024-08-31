@@ -57,11 +57,11 @@ const MenuBar = ({setOpen}) => {
           </li>
           <li className="bg-bg_secondary py-pl_primary">
             <NavLink
-              to="/hotProduct"
+              to="/admin/login"
               onClick={handleClose}
               className={`text-text_secondary font-semibold text-text_md hover:text-color_blue duration-300`}
             >
-              Hot Product
+              Login
             </NavLink>
           </li>
         </ul>
